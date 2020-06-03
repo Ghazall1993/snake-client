@@ -9,6 +9,8 @@ function handleUserInput(c) {
   const sDown = '73';
   const dRight = '64';
 
+  const secret = '78';
+
   switch (dataHex) {
     case ctrlCHex:
       process.exit();
@@ -24,6 +26,9 @@ function handleUserInput(c) {
       break;
     case dRight:
       connection.write("Move: right");
+      break;
+    case secret:
+      connection.write("Say: Heeey");
       break;
   }
 }
