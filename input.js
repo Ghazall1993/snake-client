@@ -1,16 +1,38 @@
+let connection;
 
 function handleUserInput(c) {
   const dataHex = Buffer.from(c, 'ascii').toString('hex');
-  const ctrlCHex = '03';c
-  if (dataHex === ctrlCHex) {
-    process.exit();
+
+  const ctrlCHex = '03';
+  const wUp = '77';
+  const aLeft = '61';
+  const sDown = '73';
+  const dRight = '64';
+
+  switch (dataHex) {
+    case ctrlCHex:
+      process.exit();
+      break;
+    case wUp:
+      connection.write("Move: up");
+      break;
+    case aLeft:
+      connection.write("Move: left");
+      break;
+    case sDown:
+      connection.write("Move: down");
+      break;
+    case dRight:
+      connection.write("Move: right");
+      break;
   }
 }
 /**
  * Setup User Interface
  * Specifically, so that we can handle user input via stdin
  */
-const setupInput = function() {
+const setupInput = function (conn) {
+  connection = conn;
   const stdin = process.stdin;
   stdin.setRawMode(true);
   stdin.setEncoding('utf8');
@@ -18,5 +40,6 @@ const setupInput = function() {
   stdin.on('data', handleUserInput);
   return stdin;
 }
+
 
 exports.setupInput = setupInput;
